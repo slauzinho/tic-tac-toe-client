@@ -1,0 +1,16 @@
+[context.production]
+  command = "yarn build:production"
+
+[context.deploy-preview.environment]
+  command = "bun build:production"
+  [build]
+    ignore = "git log -1 --format='%aN' | grep -i dependabot"
+
+[context.branch-deploy]
+  command = "bun build:production"
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-XSS-Protection = "1; mode=block"
