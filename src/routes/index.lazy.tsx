@@ -10,7 +10,7 @@ export const Route = createLazyFileRoute('/')({
 });
 
 function Index() {
-  const { myMark, game, connect } = useGameStocket();
+  const { myMark, game, connect, playAgain } = useGameStocket();
   return (
     <div className="flex items-center justify-center h-[calc(100svh-68px)]">
       {!game?.status ? (
@@ -24,8 +24,15 @@ function Index() {
               Waiting for oppenent to join...
             </p>
           )}
+          {game.winner === myMark ? (
+            <p className="mb-12 text-2xl text-green-500 uppercase">You win!</p>
+          ) : game.winner === 'draw' ? (
+            <p className="mb-12 text-2xl text-gray-500 uppercase">Draw</p>
+          ) : game.winner ? (
+            <p className="mb-12 text-2xl text-red-500 uppercase">You lose!</p>
+          ) : null}
 
-          {!!game?.current?.mark && (
+          {!!game?.current?.mark && !game.winner && (
             <div className="flex items-center">
               Turn:{' '}
               <span className="ml-1 text-lg font-bold">
@@ -43,10 +50,16 @@ function Index() {
             )}
           </div>
 
-          {!!myMark && (
+          {!!myMark && !game.winner && (
             <div className="flex items-center mt-4">
               You're <span className="ml-1 text-lg font-bold">{myMark}</span>
             </div>
+          )}
+
+          {!!game.winner && (
+            <Button className="mt-12 uppercase" onClick={playAgain}>
+              Play again
+            </Button>
           )}
         </div>
       )}

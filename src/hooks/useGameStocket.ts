@@ -60,6 +60,7 @@ interface WebSocketState {
   connect: () => void;
   disconnect: () => void;
   makeMove: (move: { row: number; col: number }) => void;
+  playAgain: () => void;
 }
 
 const handleMessage = (event: MessageEvent<unknown>) => {
@@ -129,6 +130,9 @@ const useGameStocket = create<WebSocketState>((set, get) => ({
   },
   makeMove: ({ row, col }: { row: number; col: number }) => {
     get().sendMessage(JSON.stringify({ type: 'move', data: { row, col } }));
+  },
+  playAgain: () => {
+    get().sendMessage(JSON.stringify({ type: 'playAgain' }));
   },
 }));
 
