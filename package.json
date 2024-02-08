@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "build:production": "export VITE_BRANCH=$BRANCH && vue-tsc --noEmit && vite build --mode production",
+    "build:production": "export VITE_BRANCH=$BRANCH && tsc --noEmit && vite build --mode production",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
   },
